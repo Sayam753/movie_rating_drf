@@ -131,7 +131,15 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
         'rest_framework.authentication.SessionAuthentication',
         # session auth must come after jwt auth to ensure correct status codes are sent back
-    )
+    ),
+    'DEFAULT_THROTTLE_CLASSES': [
+            'rest_framework.throttling.AnonRateThrottle',
+            'rest_framework.throttling.UserRateThrottle'
+    ],
+    'DEFAULT_THROTTLE_RATES': {
+            'anon': '15/min',
+            'user': '15/min'
+    }
 }
 
 # simple jwt settings

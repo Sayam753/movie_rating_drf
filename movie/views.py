@@ -2,6 +2,7 @@ from django.db import IntegrityError
 from rest_framework import status
 from rest_framework.parsers import JSONParser
 from rest_framework.response import Response
+from rest_framework.throttling import UserRateThrottle
 from rest_framework.views import APIView
 from .models import NewMovie, Rate
 from .permissions import IsProduction, IsUser
@@ -12,6 +13,7 @@ from production.models import User, ProfileOfUser, ProfileOfActor, ProfileOfDire
 # Create your views here.
 class MovieListCreateView(APIView):
     permission_classes = (IsProduction, )
+    throttle_classes = [UserRateThrottle]
     name = "movie-list-create"
 
     def get(self, request, format=None):
@@ -65,6 +67,7 @@ class MovieListCreateView(APIView):
 
 class RateCreateView(APIView):
     permission_classes = (IsUser, )
+    throttle_classes = [UserRateThrottle]
     name = "rate-create"
 
     def post(self, request, format=None):
