@@ -15,8 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from movie.views import MovieListCreateView
 
 urlpatterns = [
+    path('', MovieListCreateView.as_view(), name=MovieListCreateView.name),
     path('movies/', include("movie.urls")),
     path('admin/', admin.site.urls),
     path('auth/', include("production.urls")),
